@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+
+//TODO ts변경
 const Register = () => {
   const [input, setInput] = useState({
     name: '',
@@ -6,12 +8,21 @@ const Register = () => {
     country: '',
     bio: '',
   })
-
+  const countRef = useRef(0)
+  const inputRef = useRef()
   const onChange = (e: any) => {
+    console.log(countRef.current)
+
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     })
+  }
+
+  const onSubmit = () => {
+    if (input.name === '') {
+      inputRef.current.focus()
+    }
   }
 
   return (
@@ -19,6 +30,7 @@ const Register = () => {
       <div>
         <div>
           <input
+            ref={inputRef}
             name="name"
             value={input.name}
             onChange={onChange}
@@ -45,6 +57,7 @@ const Register = () => {
       <div>
         <textarea name="bio" value={input.bio} onChange={onChange} />
       </div>
+      <button onClick={onSubmit}>제출</button>
     </>
   )
 }
