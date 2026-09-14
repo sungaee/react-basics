@@ -3,6 +3,8 @@ import Header from '../components/Header'
 import Editor from '../components/Editor'
 import Button from '../components/Button'
 import useDiary from '../hooks/useDiary' 
+import { useContext } from 'react'
+import { DiaryDispatchContext } from '../App'
 
 const Edit = () => {
   const params = useParams()
