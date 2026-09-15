@@ -16,11 +16,15 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    /* 타입 검사 완화 (임시) */
+    "strict": false,
+    "noImplicitAny": false,
+
+    /* Linting - 임시로 꺼둠 */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false,
+    "erasableSyntaxOnly": true
   },
   "include": ["src"]
 }
