@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import { useContext, useEffect } from 'react'
 import { DiaryDispatchContext } from '../App'
 import usePageTitle from '../hooks/usePageTitle'
+import type { DiaryInput } from '../types'
 
 const New = () => {
   const { onCreate } = useContext(DiaryDispatchContext)
   const nav = useNavigate()
-  usePageTitle("새 일기 쓰기")
+  usePageTitle('새 일기 쓰기')
 
-  const onSubmit = (input) => {
+  const onSubmit = (input: DiaryInput) => {
     onCreate(input.createdDate.getTime(), input.emotionId, input.content)
     nav('/', { replace: true }) //홈으로 이동하면서 뒤로가기 방지
   }

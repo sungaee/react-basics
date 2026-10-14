@@ -5,8 +5,14 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { emotionList } from '../util/constants'
 import { getStringedDate } from '../util/get-stringed-date'
+import type { Diary, DiaryInput } from '../types'
 
-const Editor = ({ initData, onSubmit }) => {
+interface EditorProps {
+  initData?: Diary 
+  onSubmit: (input: DiaryInput) => void
+}
+
+const Editor = ({ initData, onSubmit }: EditorProps) => {
   const [input, setInput] = useState({
     createdDate: new Date(),
     emotionId: 3,

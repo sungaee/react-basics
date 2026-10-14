@@ -1,7 +1,19 @@
 import './EmotionItem.css'
 import { getEmotionImage } from '../util/get-emotion-image'
 
-const EmotionItem = ({ emotionId, emotionName, isSelected, onClick }) => {
+interface EmotionItemProps {
+  emotionId: number
+  emotionName: string
+  isSelected: boolean
+  onClick: React.MouseEventHandler<HTMLDivElement>
+}
+
+const EmotionItem = ({
+  emotionId,
+  emotionName,
+  isSelected,
+  onClick,
+}: EmotionItemProps) => {
   return (
     <div
       onClick={onClick}
