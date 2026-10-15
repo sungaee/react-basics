@@ -74,7 +74,7 @@ function App() {
       setIsLoading(false)
       return
     }
-    const parsedData = JSON.parse(storedData)
+    const parsedData:DiaryEntry[] = JSON.parse(storedData)
     if (!Array.isArray(parsedData)) {
       setIsLoading(false)
       return
@@ -95,7 +95,7 @@ function App() {
   }, [])
 
   // 새로운 일기 추가
-  const onCreate = (createdDate, emotionId, content) => {
+  const onCreate = (createdDate: number, emotionId:number, content: string) => {
     dispatch({
       type: 'CREATE',
       data: {
