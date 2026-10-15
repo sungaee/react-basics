@@ -1,13 +1,8 @@
-export const getStringedDate = (targetDate) => {
+export const getStringedDate = (targetDate: Date | number) => {
   // 날짜 -> YYYY_MM-DD
-  let year = targetDate.getFullYear()
-  let month = targetDate.getMonth() + 1
-  let date = targetDate.getDate()
-  if (month < 10) {
-    month = `0${month}`
-  }
-  if (date < 10) {
-    date = `0${date}`
-  }
+  const d = new Date(targetDate)
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const date = String(d.getDate()).padStart(2, '0')
   return `${year}-${month}-${date}`
 }

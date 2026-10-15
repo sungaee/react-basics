@@ -1,4 +1,4 @@
-export interface Diary {
+export interface DiaryEntry {
   id: number
   createdDate: number
   emotionId: number

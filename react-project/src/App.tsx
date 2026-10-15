@@ -6,13 +6,20 @@ import Diary from './pages/Diary'
 import New from './pages/New'
 import Edit from './pages/Edit'
 import Notfound from './pages/Notfound'
+import type { DiaryEntry } from './types'
 
 // 1. "/" : 모든 일기를 조회하는 Home페이지
 // 2. "/new" : 새로운 일기를 작성하는 New페이지
 // 3. "/diary" : 일기를 상세히 조회하는 Diary페이지
 
-function reducer(state, action) {
-  let nextState
+type Action =
+  | { type: 'INIT'; data: DiaryEntry[] }
+  | { type: 'CREATE'; data: DiaryEntry }
+  | { type: 'UPDATE'; data: DiaryEntry }
+  | { type: 'DELETE'; id: number }
+
+function reducer(state: DiaryEntry[], action: Action): DiaryEntry[] {
+  let nextState: DiaryEntry[]
 
   switch (action.type) {
     case 'INIT':
@@ -38,8 +45,23 @@ function reducer(state, action) {
   return nextState
 }
 
-export const DiaryStateContext = createContext()
-export const DiaryDispatchContext = createContext()
+interface DiaryDispatch {
+  onCreate: (createdDate: number, emotionId: number, content: string) => void
+  onUpdate: (
+    id: number,
+    createdDate: number,
+    emotionId: number,
+    content: string,
+  ) => void
+  onDelete: (id: number) => void
+}
+
+export const DiaryStateContext = createContext<DiaryEntry[]>([])
+export const DiaryDispatchContext = createContext<DiaryDispatch>({
+  onCreate: () => {},
+  onUpdate: () => {},
+  onDelete: () => {},
+})
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -53,17 +75,17 @@ function App() {
       return
     }
     const parsedData = JSON.parse(storedData)
-    if(!Array.isArray(parsedData)){
+    if (!Array.isArray(parsedData)) {
       setIsLoading(false)
       return
     }
-    let maxId = 0;
-    parsedData.forEach((item)=>{
-      if(Number(item.id) > maxId) {
+    let maxId = 0
+    parsedData.forEach((item) => {
+      if (Number(item.id) > maxId) {
         maxId = Number(item.id)
       }
     })
-    idRef.current = maxId + 1;
+    idRef.current = maxId + 1
 
     dispatch({
       type: 'INIT',
@@ -85,7 +107,7 @@ function App() {
     })
   }
   // 기존 일기 수정
-  const onUpdate = (id, createdDate, emotionId, content) => {
+  const onUpdate = (id:number, createdDate:number, emotionId:number, content:string) => {
     dispatch({
       type: 'UPDATE',
       data: {
@@ -97,17 +119,17 @@ function App() {
     })
   }
   // 기존 일기 삭제
-  const onDelete = (id) => {
+  const onDelete = (id:number) => {
     dispatch({
       type: 'DELETE',
       id,
     })
   }
 
-  if(isLoading){
+  if (isLoading) {
     return <div>데이터 로딩중입니다 ...</div>
   }
-  
+
   return (
     <>
       <DiaryStateContext.Provider value={data}>

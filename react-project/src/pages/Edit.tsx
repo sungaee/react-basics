@@ -6,6 +6,7 @@ import useDiary from '../hooks/useDiary'
 import { useContext } from 'react'
 import { DiaryDispatchContext } from '../App'
 import usePageTitle from '../hooks/usePageTitle'
+import type { DiaryInput } from '../types'
 
 const Edit = () => {
   const params = useParams()
@@ -17,15 +18,15 @@ const Edit = () => {
   const onClickDelete = () => {
     if (window.confirm('일기를 정말 삭제할까요? 다시 복구되지 않아요!')) {
       //일기 삭제 로직
-      onDelete(params.id)
+      onDelete(Number(params.id))
       nav('/', { replace: true })
     }
   }
 
-  const onSubmit = (input) => {
+  const onSubmit = (input:DiaryInput) => {
     if (window.confirm('일기를 정말 수정할까요?')) {
       onUpdate(
-        params.id,
+        Number(params.id),
         input.createdDate.getTime(),
         input.emotionId,
         input.content,

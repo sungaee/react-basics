@@ -2,8 +2,11 @@ import { getEmotionImage } from '../util/get-emotion-image'
 import Button from './Button'
 import './DiaryItem.css'
 import { useNavigate } from 'react-router-dom'
+import type { DiaryEntry } from '../types'
 
-const DiaryItem = ({ id, emotionId, createdDate, content }) => {
+
+
+const DiaryItem = ({ id, emotionId, createdDate, content }: DiaryEntry) => {
   const nav = useNavigate()
 
   return (

@@ -3,7 +3,9 @@ import './DiaryList.css'
 import DiaryItem from './DiaryItem'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-const DiaryList = ({ data }) => {
+import type { DiaryEntry } from '../types'
+
+const DiaryList = ({ data } : {data: DiaryEntry[]}) => {
   const nav = useNavigate()
   const [sortType, setSortType] = useState('latest')
   const onChangeSortType = (e) => {
